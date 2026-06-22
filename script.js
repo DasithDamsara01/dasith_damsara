@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 3. PURE JAVASCRIPT TYPING EFFECT IMPLEMENTATION
-    const words = ["Graphic Designer.", "Illustrator.", "Thinker.", "Visual Artist", "Creative Designer"];
+    const words = ["Graphic Designer.", "Illustrator.", "Thinker.", "Visual Artist", " Designer"];
     let i = 0;
     let timer;
 
