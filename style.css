@@ -593,13 +593,6 @@ footer {
     gap: 20px;           /* ඉස්කෝලෙ සහ NVQ කොටස් දෙක අතර පරතරය */
     width: 100%;
 }
-
-.edu-item {
-    margin: 0;
-    font-size: 14px;     /* අකුරු වල ප්‍රමාණය */
-    color: #ffffff;      /* අකුරු වල පාට (සුදු) */
-    white-space: nowrap; /* text එක කැඩිලා පල්ලෙහාට යන එක නවත්වන්න */
-}
 /* ටයිම්ලයින් එකේ ඉර උඩටම යන බව ස්ථිර කර ගැනීමට */
 .timeline-item {
     position: relative;
