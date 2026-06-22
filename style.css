@@ -586,3 +586,17 @@ footer {
     .hero-btns { justify-content: center; }
     .hero-content h1 { font-size: 40px; }
 }
+.edu-text-group {
+    display: flex;
+    flex-direction: row; /* එක පේළියට දිගටම යන්න */
+    flex-wrap: wrap;     /* screen එක මදි වුණොත් විතරක් යටට යන්න */
+    gap: 20px;           /* ඉස්කෝලෙ සහ NVQ කොටස් දෙක අතර පරතරය */
+    width: 100%;
+}
+
+.edu-item {
+    margin: 0;
+    font-size: 14px;     /* අකුරු වල ප්‍රමාණය */
+    color: #ffffff;      /* අකුරු වල පාට (සුදු) */
+    white-space: nowrap; /* text එක කැඩිලා පල්ලෙහාට යන එක නවත්වන්න */
+}
