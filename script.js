@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- MAGNET CURSOR ANIMATION INTERPOLATION LOGIC ---
+    // --- MAGNET CURSOR ANIMATION ---
     const cursorDot = document.getElementById('cursorDot');
     const cursorOutline = document.getElementById('cursorOutline');
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateMagnetCursor();
 
-    // 3. PURE JAVASCRIPT TYPING EFFECT IMPLEMENTATION
+    // 3. TYPING EFFECT
     const words = ["Graphic Designer.", "Illustrator.", "Thinker.", "Visual Artist", " Designer"];
     let i = 0;
     let timer;
@@ -107,16 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
         loopDeleting();
     }
 
-    // 4. DYNAMIC RANDOM GRAPHIC DESIGN ICONS LOGIC
+    // 4. DYNAMIC HERO ICONS
     const designIcons = [
-        "fas fa-vector-square",
-        "fas fa-pen-nib",
-        "fas fa-palette",
-        "fas fa-bezier-curve",
-        "fas fa-crop-alt",
-        "fas fa-paint-brush",
-        "fas fa-layer-group",
-        "fas fa-pencil-alt"
+        "fas fa-vector-square", "fas fa-pen-nib", "fas fa-palette", 
+        "fas fa-bezier-curve", "fas fa-crop-alt", "fas fa-paint-brush", 
+        "fas fa-layer-group", "fas fa-pencil-alt"
     ];
     
     const iconElement = document.getElementById('dynamic-hero-icon');
@@ -125,22 +120,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function changeHeroIcon() {
         iconContainer.classList.add('icon-swap');
-        
         setTimeout(() => {
             currentIconIndex = (currentIconIndex + 1) % designIcons.length;
             iconElement.className = designIcons[currentIconIndex];
             iconContainer.classList.remove('icon-swap');
         }, 500);
     }
-
     setInterval(changeHeroIcon, 3500);
 
-    // 5. PROJECT VIEWER SYSTEM
+
+    // ==========================================
+    // 💡 5. DYNAMIC PROJECT DATA (AUTO-ADD SYSTEM)
+    // ==========================================
+    // 📌 දසිත්, ඔයාගේ පින්තූරවල නම් (Paths) වෙනස් කරන්න ඕනේ මෙන්න මේ පල්ලෙහා තියෙන ලිස්ට් එකෙන් විතරයි!
+    const myProjectsData = {
+        'illustrator': [
+            { title: 'Vector Portrait Design', desc: 'Detailed vector portrait created in Adobe Illustrator.', img: 'images/vector-portrait.png' },
+            { title: 'Modern Brand Logo', desc: 'Minimalist corporate identity logo design.', img: 'images/logo-design.png' }
+        ],
+        'photoshop': [
+            { title: 'Surreal Photo Manipulation', desc: 'Advanced image blending, lighting and grading.', img: 'images/manipulation.png' }
+        ],
+        'indesign': [],  // දැනට හිස්ව ඇති නිසා Auto "NO PROJECTS YET" කියලා වැටේවි
+        'coreldraw': [],
+        'websites': [
+            { title: 'Personal Portfolio Website', desc: 'Clean, responsive front-end dark layout design.', img: 'images/portfolio-site.png' }
+        ]
+    };
+
     const projectTriggers = document.querySelectorAll('.project-trigger');
     const projectViewer = document.getElementById('projectViewer');
     const closeViewerBtn = document.getElementById('closeViewerBtn');
     const nextProjectBtn = document.getElementById('nextProjectBtn');
     const viewerProjectTitle = document.getElementById('viewerProjectTitle');
+    const viewerDynamicArea = document.getElementById('viewerDynamicArea'); 
 
     const projectOrder = ['illustrator', 'photoshop', 'indesign', 'coreldraw', 'websites'];
     const projectTitles = {
@@ -153,9 +166,44 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentProject = '';
 
+    // Automatically render project grids using JS
     function openProject(projectId) {
         currentProject = projectId;
         viewerProjectTitle.innerText = projectTitles[projectId];
+        
+        viewerDynamicArea.innerHTML = ''; // Reset content
+        
+        const projects = myProjectsData[projectId];
+
+        if (projects && projects.length > 0) {
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'project-gallery-grid';
+
+            projects.forEach(proj => {
+                gridContainer.innerHTML += `
+                    <div class="project-item-card">
+                        <div class="project-img-wrapper">
+                            <img src="${proj.img}" alt="${proj.title}" onerror="this.src='https://placehold.co/600x400/111827/ffffff?text=Image+Not+Found'">
+                        </div>
+                        <div class="project-card-details">
+                            <h4>${proj.title}</h4>
+                            <p>${proj.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            viewerDynamicArea.appendChild(gridContainer);
+        } else {
+            // Render beautiful "No Projects Yet" box
+            viewerDynamicArea.innerHTML = `
+                <div class="no-projects-box">
+                    <i class="fas fa-folder-open"></i>
+                    <h2>NO PROJECTS YET</h2>
+                    <p>Stay tuned! Creative works for this category will be uploaded soon.</p>
+                </div>
+            `;
+        }
+
         projectViewer.classList.add('active');
         projectViewer.scrollTo({ top: 0, behavior: 'smooth' });
     }
